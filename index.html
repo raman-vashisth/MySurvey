@@ -8,47 +8,106 @@
     <style>
         body {
             background-image: url('myimg.jpg'); /* Replace with your chosen image URL */
-            background-size: cover; 
-            background-position: center bottom; 
+            background-size: cover;
+            background-position: center center;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center; 
             min-height: 100vh;
             margin: 0;
         }
 
+        .language-selection {
+	 background-color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 20px;
+		padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .gif-container {
+            text-align: center;
+            margin-bottom: 20px; 
+        }
+
         .container {
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 40px;
             border-radius: 10px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="container text-center">
-        <h1>Park smart, park stress-free</h1>
-        <p>Have you ever felt uncomfortable displaying your personal contact information on your vehicle? Would you prefer a discreet and secure way for others to reach you if needed?</p>
+    <div id="language-selection-container"> 
+        <div class="language-selection">
+            <h2>Select Language</h2>
+            <button id="english" class="btn btn-primary">English</button>
+            <button id="hindi" class="btn btn-secondary">हिंदी</button>
+        </div>
+    </div>
 
-        <button type="button" class="btn btn-primary btn-lg">Yes</button>
-        <button type="button" class="btn btn-secondary btn-lg">No</button>
+    <div id="survey-container" style="display: none;"> 
+        <div class="gif-container">
+            <iframe src="https://giphy.com/embed/3o7TKIi4TqVMBWaSB2" width="480" height="269" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/impastortv-tv-land-impastor-dark-comedy-3o7TKIi4TqVMBWaSB2">via GIPHY</a></p>
+        </div>
 
-        <p id="response" class="mt-3"></p>
+        <div class="container" id="survey-content">
+            <h1 id="survey-title">Park smart, park stress-free</h1>
+            <p id="survey-description">Have you ever felt uncomfortable displaying your personal contact information on your vehicle? Would you prefer a discreet and secure way for others to reach you if needed?</p>
+
+            <button type="button" class="btn btn-primary btn-lg" id="yes-button">Yes</button>
+            <button type="button" class="btn btn-secondary btn-lg" id="no-button">No</button>
+
+            <p id="response" class="mt-3"></p>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const yesButton = document.querySelector('.btn-primary');
-        const noButton = document.querySelector('.btn-secondary');
+        const englishButton = document.getElementById('english');
+        const hindiButton = document.getElementById('hindi');
+        const languageSelectionContainer = document.getElementById('language-selection-container');
+        const surveyContainer = document.getElementById('survey-container');
+        const surveyTitle = document.getElementById('survey-title');
+        const surveyDescription = document.getElementById('survey-description');
+        const yesButton = document.getElementById('yes-button');
+        const noButton = document.getElementById('no-button');
         const responseDiv = document.getElementById('response');
 
+        englishButton.addEventListener('click', () => {
+            languageSelectionContainer.style.display = 'none'; 
+            surveyContainer.style.display = 'block'; 
+        });
+
+        hindiButton.addEventListener('click', () => {
+            languageSelectionContainer.style.display = 'none'; 
+            surveyContainer.style.display = 'block'; 
+
+            surveyTitle.textContent = "स्मार्ट पार्क करें, तनाव मुक्त रहें"; 
+            surveyDescription.textContent = "क्या आपने कभी अपने वाहन पर अपनी व्यक्तिगत संपर्क जानकारी प्रदर्शित करते समय असहज महसूस किया है? क्या आप दूसरों के लिए आप तक पहुंचने का एक विवेकपूर्ण और सुरक्षित तरीका पसंद करेंगे?";
+            yesButton.textContent = "हां";
+            noButton.textContent = "नहीं"; 
+        });
+
         yesButton.addEventListener('click', () => {
-            responseDiv.textContent = "Thanks for your response";
+            if (surveyTitle.textContent === "Park smart, park stress-free") { 
+                responseDiv.textContent = "Thanks for your response !!"; 
+            } else { 
+                responseDiv.textContent = "आपकी प्रतिक्रिया के लिए धन्यवाद !!"; 
+            }
         });
 
         noButton.addEventListener('click', () => {
-            responseDiv.textContent = "Protect your privacy !!! Don't share your number with Strangers !!!";
+            if (surveyTitle.textContent === "Park smart, park stress-free") { 
+                responseDiv.textContent = "Protect your privacy !!! Don't share your number with Strangers !!!"; 
+            } else { 
+                responseDiv.textContent = "अपनी गोपनीयता की रक्षा करें !!! अजनबियों के साथ अपना नंबर साझा न करें !!!"; 
+            }
         });
     </script>
 
